@@ -6,11 +6,6 @@
 
 A web-based cinema ticket booking system developed with **PHP**, **MySQL**, **HTML5**, and **CSS3**.
 
-![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-
 **English 🇬🇧 | فارسی 🇮🇷**
 
 </div>
@@ -120,24 +115,6 @@ Start Apache and MySQL.
 
 Open the project in your browser.
 
----
-
-# 📸 Screenshots
-
-Create a folder named **screenshots** and place project screenshots inside.
-
-Example:
-
-```
-screenshots/
-│
-├── home.png
-├── movie-details.png
-├── seats.png
-├── purchase.png
-├── profile.png
-└── admin-panel.png
-```
 
 ---
 
@@ -227,11 +204,6 @@ Software Engineering Student
 
 ---
 
-# 📸 تصاویر پروژه
-
-چند تصویر از صفحات مختلف پروژه در این قسمت قرار دهید.
-
----
 
 # 🚀 توسعه‌های آینده
 
