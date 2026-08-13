@@ -1,8 +1,7 @@
 <?php
-$link = mysqli_connect("localhost", "root", "", "cinemablit");
-if (mysqli_connect_errno()) {
-    exit("خطا: " . mysqli_connect_error());
-}
+
+require_once "config.php";
+
 if (!isset($_SESSION['loginstate'])) {
     $_SESSION['loginstate'] = false;
 }

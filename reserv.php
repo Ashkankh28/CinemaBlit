@@ -1,9 +1,8 @@
 <?php
 session_start();
-$link = mysqli_connect("localhost", "root", "", "cinemablit");
-if (mysqli_connect_errno()) {
-    exit("خطا در اتصال به پایگاه داده: " . mysqli_connect_error());
-}
+
+require_once "config.php";
+
 $id = $_SESSION['id'];
 if(isset($_GET['movid'])){
     $movid = $_GET['movid']; 
