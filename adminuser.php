@@ -39,36 +39,11 @@ if(isset($_SESSION['ok'])){ ?>
         <?php } ?>
     </table>
         </td>
-        <?php if($_SESSION['usertype'] == "admin"): ?>
-        <td>
-        <table align="right" id="sidebar">
-            <tr>
-                <td>
-                    <button id="btn" style="cursor: pointer;"
-                    onclick="window.location.href='adminuser.php'">مدیریت کاربران</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button id="btn" style="cursor: pointer;"
-                    onclick="window.location.href='addmov.php'">افزودن فیلم</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button id="btn" style="cursor: pointer;"
-                    onclick="window.location.href='admin.php'">مدیریت فیلم ها</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button id="btn" style="cursor: pointer;"
-                    onclick="window.location.href='orders.php'">مدیریت سفارشات</button>
-                </td>
-            </tr>
-        </table>
-        </td>
-        <?php endif; ?>
+            <?php
+            if ($_SESSION['usertype'] == "admin") {
+                include("adminSidebar.html");
+            }
+            ?>
     </tr>
     </table>
 <?php
