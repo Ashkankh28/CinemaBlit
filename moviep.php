@@ -1,7 +1,14 @@
 <?php
 session_start();
 include("header.php");
-$movid = $_GET['movid'];
+if(isset($_GET['movid'])){
+    $movid = $_GET['movid'];
+}
+else{
+    $_SESSION['error'] = "خطایی در تشخیص فیلم پیش آمده! لطفا دوباره تلاش کنید";
+    header("Location: main-cinemablit.php");
+    exit;
+}
 $query = "SELECT * FROM movies WHERE movid = $movid ";
 $result = mysqli_query($link,$query);
 $row = mysqli_fetch_array($result);
@@ -32,18 +39,12 @@ $row = mysqli_fetch_array($result);
                     <?php echo($row['tickets']); ?></label>
                     </td>
                     <td align="left">
-                    <?php if($_SESSION['loginstate']==true && $_SESSION['usertype']=="admin"){
-                        $disabled = ($_SESSION['usertype'] == "admin") ? 'disabled' : '';
-                        $disabledlook = ($_SESSION['usertype'] == "admin") ? 
-                        "cursor: default;color:lightgray;" : '';
-                    ?>
-                        <button id="btn" style="cursor: pointer;
-                        <?= $disabledlook ?>" <?= $disabled ?>>خرید</button><?php } 
-                        elseif($_SESSION['loginstate']==true){ ?>
+                    <?php if($_SESSION['loginstate']==true){ ?>
                         <button id="btn" onclick="location.href='buy.php?movid=<?php
                         echo($row['movid']); ?>'" style="cursor: pointer;">
                             خرید</button> 
-                        <?php } 
+                        <?php 
+                        }
                         else{ ?>
                             <button id="btn" onclick="location.href='login.php'" 
                             style="cursor: pointer;">خرید</button>

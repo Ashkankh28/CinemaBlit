@@ -1,9 +1,7 @@
 <?php
 session_start();
 include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php }
+include("errorOKhandle.php");
 $query = "SELECT * FROM movies";
 $result = mysqli_query($link, $query);
 ?>

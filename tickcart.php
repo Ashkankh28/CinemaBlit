@@ -1,12 +1,7 @@
 <?php
 session_start();
 include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" dir="rtl" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php }
-if(isset($_SESSION['ok'])){ ?>
-    <p align="center" id="ok"><?php echo $_SESSION['ok']; unset($_SESSION['ok']);?></p>
-<?php } 
+include("errorOKhandle.php");
 ?>
     <table id="admin" align="center" border="1px" style=
     " border-collapse: separate;overflow: hidden;margin-bottom:20px" dir="rtl">

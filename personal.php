@@ -1,26 +1,13 @@
 <?php
 session_start();
 include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php }
-if (isset($_SESSION['ok'])) { ?>
-    <p align="center" id="ok"><?php echo $_SESSION['ok']; unset($_SESSION['ok']); ?></p>
-<?php } ?>
+include("errorOKhandle.php"); 
+?>
 <table align="center" width="100%" class="layout-row">
     <tr>
         <td>
 <form action="editpersonal.php" method="POST">
  <table id="user" align="center" style="margin-bottom:30px">
-    <tr>
-        <td>
-        <input id="inform" name="id" type="text" value="<?php echo $_SESSION['id']?>" readonly
-        style="color:lightgray;"/>
-        </td>
-        <td style="padding-top:15px;">
-        <label id="titr" style="padding-right:30px;">:آیدی</label>
-        </td>
-    </tr>
     <tr>
         <td>
         <input id="inform" name="namefamily" type="text" value="<?php echo $_SESSION['namefamily']?>"/>
@@ -70,7 +57,7 @@ if (isset($_SESSION['ok'])) { ?>
 </form>
         </td>
             <?php
-            if ($_SESSION['usertype'] == "admin") {
+            if (isset($_SESSION['usertype']) && $_SESSION['usertype'] == "admin") {
                 include("adminSidebar.html");
             }
             ?>

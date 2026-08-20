@@ -22,10 +22,26 @@ if (
         exit();
     }
 
-    $query2 = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
+    if (!preg_match('/^09[0-9]{9}$/', $phone)) {
+        $_SESSION['error'] = "شماره موبایل وارد شده صحیح نمی‌باشد";
+        header("Location: register.php");
+        exit();
+    }
+    
+    if (
+        strlen($pass) < 8 ||
+        !preg_match('/[0-9]/', $pass) ||
+        !preg_match('/[!@#$%^&*()_\-+=]/', $pass)
+    ) {
+        $_SESSION['error'] = "رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حداقل یک عدد و یک علامت باشد";
+        header("Location: register.php");
+        exit();
+    }
+
+    $query2 = "SELECT * FROM users WHERE username = '$username' OR email = '$email' OR phone = '$phone'";
     $result2 = mysqli_query($link, $query2);
     if (mysqli_num_rows($result2) > 0) {
-        $_SESSION['error'] = "این نام کاربری یا ایمیل قبلاً ثبت شده است";
+        $_SESSION['error'] = "این نام کاربری یا شماره موبایل یا ایمیل قبلاً ثبت شده است";
         header("Location: register.php");
         exit();
     }

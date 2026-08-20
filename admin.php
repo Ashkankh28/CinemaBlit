@@ -1,12 +1,8 @@
 <?php
 session_start();
 include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" dir="rtl" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php }
-if(isset($_SESSION['ok'])){ ?>
-    <p align="center" id="ok"><?php echo $_SESSION['ok']; unset($_SESSION['ok']);?></p>
-<?php } ?>
+include("errorOKhandle.php");
+?>
 <table align="center" width="100%" class="layout-row">
     <tr>
         <td>
@@ -50,7 +46,7 @@ if(isset($_SESSION['ok'])){ ?>
     </table>
         </td>
             <?php
-            if ($_SESSION['usertype'] == "admin") {
+            if (isset($_SESSION['usertype']) && $_SESSION['usertype'] == "admin") {
                 include("adminSidebar.html");
             }
             ?>

@@ -1,9 +1,8 @@
 <?php
 session_start();
  include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php } ?>
+include("errorOKhandle.php");
+?>
 <form action="regact.php" method="POST">
 <table id="user" align="center" style="margin-bottom:30px">
     <tr>

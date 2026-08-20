@@ -1,12 +1,8 @@
 <?php
 session_start();
- include("header.php");
-if (isset($_SESSION['error'])){ ?>
-    <p align="center" id="btn"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php }
-if (isset($_SESSION['ok'])) { ?>
-    <p align="center" id="ok"><?php echo $_SESSION['ok']; unset($_SESSION['ok']); ?></p>
-<?php } ?>
+include("header.php");
+include("errorOKhandle.php");
+ ?>
 <form id="frm" action="logact.php" method="POST" dir="rtl">
     <p id="titr" style="text-align:center;font-size:1.4rem;font-weight:800;color:var(--gold-soft);margin-bottom:1.4rem;">🎟️ ورود به حساب کاربری</p>
     <table align="center">

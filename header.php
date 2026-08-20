@@ -32,9 +32,7 @@ if (!isset($_SESSION['loginstate'])) {
                     <?php  else : ?>
                         <button id="btn" style="cursor: pointer;" onclick="window.location.href='personal.php'">مشخصات من</button>
                         <?php endif; ?>
-                    <?php if ($_SESSION['usertype'] == "normaluser"): ?>
                         <button id="btn" style="cursor: pointer;" onclick="window.location.href='tickcart.php'">سبد خرید</button>
-                    <?php endif; ?>
                 <?php else: ?>
                     <button id="btn" style="cursor: pointer;" onclick="window.location.href='login.php'">ورود</button>
                     <button id="btn" style="cursor: pointer;" onclick="window.location.href='register.php'">ثبت‌نام</button>

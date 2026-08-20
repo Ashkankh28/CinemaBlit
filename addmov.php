@@ -78,7 +78,7 @@ include("header.php");
 </form>
         </td>
             <?php
-            if ($_SESSION['usertype'] == "admin") {
+            if (isset($_SESSION['usertype']) && $_SESSION['usertype'] == "admin") {
                 include("adminSidebar.html");
             }
             ?>
