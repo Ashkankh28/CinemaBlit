@@ -40,6 +40,14 @@ if (
     $movprice = $_POST['movprice'];
     $movabout = $_POST['movabout'];
 
+    $check_query = "SELECT * FROM movies WHERE movname = '$movname' AND movdirector = '$movdirector'";
+    $check_result = mysqli_query($link, $check_query);
+    if (mysqli_num_rows($check_result) > 0) {
+        $_SESSION['error'] = "این فیلم قبلاً ثبت شده است";
+        header("Location: admin.php");
+        exit();
+    }
+
     $movpicture = $_FILES['movpicture']['name'];
     $tmp_name = $_FILES['movpicture']['tmp_name'];
     $targetdir = "./pics/";
@@ -79,13 +87,6 @@ if (
         exit();
     }
 
-    $check_query = "SELECT * FROM movies WHERE movname = '$movname' AND movdirector = '$movdirector'";
-    $check_result = mysqli_query($link, $check_query);
-    if (mysqli_num_rows($check_result) > 0) {
-        $_SESSION['error'] = "این فیلم قبلاً ثبت شده است";
-        header("Location: admin.php");
-        exit();
-    }
 
 $insert_query = "INSERT INTO movies (movname, movdirector, movdate, movshowtime, movprice,
                  movpicture, movabout , tickets)
@@ -94,25 +95,22 @@ $insert_query = "INSERT INTO movies (movname, movdirector, movdate, movshowtime,
 
     if (mysqli_query($link, $insert_query)) {
         $_SESSION['ok'] = "فیلم با موفقیت اضافه شد";
+        $movid = mysqli_insert_id($link);
+        $rows = ['A', 'B', 'C', 'D', 'E'];
+        $seats_per_row = 10;
+
+        foreach ($rows as $row) {
+            for ($i = 1; $i <= $seats_per_row; $i++) {
+                $query = "INSERT INTO seats (movid, seatrow, seatnum) VALUES ($movid, '$row', $i)";
+                mysqli_query($link, $query);
+            }
+        }
+            header("Location: admin.php");
+            exit();
+        
     } else {
         $_SESSION['error'] = "خطا در ثبت فیلم در پایگاه داده";
     }
-    $selquery = "SELECT movid FROM movies WHERE movname = '$movname'";
-    $selresult = mysqli_query($link,$selquery);
-    $selrow = mysqli_fetch_array($selresult);
-
-    $movid = $selrow['movid'];
-    $rows = ['A', 'B', 'C', 'D', 'E'];
-    $seats_per_row = 10;
-
-    foreach ($rows as $row) {
-        for ($i = 1; $i <= $seats_per_row; $i++) {
-            $query = "INSERT INTO seats (movid, seatrow, seatnum) VALUES ($movid, '$row', $i)";
-            mysqli_query($link, $query);
-        }
-    }
-        header("Location: admin.php");
-        exit();
 } else {
     $_SESSION['error'] = "لطفاً تمام فیلدها را به‌درستی پر کنید و یک تصویر انتخاب نمایید";
     header("Location: admin.php");
