@@ -3,8 +3,7 @@ session_start();
 
 require_once "config.php";
 
-if (isset($_POST['id']) && !empty($_POST['id']) &&
-    isset($_POST['namefamily']) && !empty($_POST['namefamily']) &&
+if (isset($_POST['namefamily']) && !empty($_POST['namefamily']) &&
     isset($_POST['username']) && !empty($_POST['username']) &&
     isset($_POST['pass']) && !empty($_POST['pass']) &&
     isset($_POST['email']) && !empty($_POST['email']) &&
@@ -12,7 +11,7 @@ if (isset($_POST['id']) && !empty($_POST['id']) &&
 ) {
 
 
-    $id = $_POST['id'];
+    $id = $_SESSION['id'];
     $namefamily = $_POST['namefamily'];
     $username = $_POST['username'];
     $pass = $_POST['pass'];
@@ -49,16 +48,17 @@ if (isset($_POST['id']) && !empty($_POST['id']) &&
         exit();
     }
 
-    $_SESSION['namefamily'] = $namefamily;
-    $_SESSION['username'] = $username;
-    $_SESSION['email'] = $email;
-    $_SESSION['phone'] = $phone;
-
     $query = "UPDATE users SET namefamily = '$namefamily' , username = '$username' , pass = '$pass' , 
      email = '$email' , phone = '$phone' WHERE id = '$id' ";
 
          if (mysqli_query($link, $query)) {
             $_SESSION['ok'] = "تغییرات با موفقیت اعمال شد";
+
+                $_SESSION['namefamily'] = $namefamily;
+                $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
+                $_SESSION['phone'] = $phone;
+
             header("Location: personal.php");
             exit;
         } else {
