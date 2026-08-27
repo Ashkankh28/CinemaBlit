@@ -23,7 +23,43 @@ if (isset($_POST['submit'])) {
     if (!empty($_FILES['movpicture']['name'])) {
         $image = $_FILES['movpicture']['name'];
         $tmp = $_FILES['movpicture']['tmp_name'];
-        move_uploaded_file($tmp, "./pics/$image");
+
+        $targetdir = "./pics/";
+        $targetfile = $targetdir . basename($image);
+        $uploadOK = true;
+        $picturetype = strtolower(pathinfo($targetfile, PATHINFO_EXTENSION));
+
+        $check = getimagesize($tmp);
+        if ($check === false) {
+            $_SESSION['error'] = "پرونده انتخاب شده عکس نیست";
+            $uploadOK = false;
+        }
+
+        if (file_exists($targetfile)) {
+            $_SESSION['error'] = "پرونده‌ای با همین نام وجود دارد";
+            $uploadOK = false;
+        }
+
+        if ($_FILES['movpicture']['size'] > 500 * 1024) {
+            $_SESSION['error'] = "حجم فایل بیش از ۵۰۰ کیلوبایت است";
+            $uploadOK = false;
+        }
+
+        if (!in_array($picturetype, ['jpg', 'jpeg', 'png'])) {
+            $_SESSION['error'] = "فقط پسوندهای JPG, JPEG, PNG مجاز هستند";
+            $uploadOK = false;
+        }
+
+        if (!$uploadOK) {
+            header("Location: admin.php");
+            exit();
+        }
+
+        if (!move_uploaded_file($tmp, $targetfile)) {
+            $_SESSION['error'] = "آپلود فایل انجام نشد";
+            header("Location: admin.php");
+            exit();
+        }
     } else {
         $image = $oldImage;
     }
@@ -33,11 +69,29 @@ if (isset($_POST['submit'])) {
               movpicture = '$image', movabout = '$about' WHERE movid = $id";
 
     if (mysqli_query($link, $query)) {
+
+        if (!empty($_FILES['movpicture']['name']) &&
+            $oldImage !== $image &&
+            file_exists("./pics/" . $oldImage)) {
+
+            unlink("./pics/" . $oldImage);
+        }
+
         $_SESSION['ok'] = "فیلم با موفقیت ویرایش شد";
         header("Location: admin.php");
         exit;
+
     } else {
+
+        if (!empty($_FILES['movpicture']['name']) &&
+            file_exists($targetfile)) {
+
+            unlink($targetfile);
+        }
+
         $_SESSION['error'] = "خطا در ویرایش فیلم";
+        header("Location: admin.php");
+        exit;
     }
 }
 ?>
