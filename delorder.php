@@ -10,9 +10,22 @@ if (isset($_GET['tickid'])) {
     $selrow = mysqli_fetch_array($selresult);
     $tickets = $selrow['tickcount'];
     $movid = $selrow['movid'];
+    
     $query = "UPDATE seats SET reserved = 0 , tickid = 0 WHERE tickid = $tickid";
+    
+    $movieQuery = "SELECT movid FROM movies WHERE movid = $movid";
+    $movieResult = mysqli_query($link, $movieQuery);
+
+    if (!$movieResult || mysqli_num_rows($movieResult) === 0) {
+        $_SESSION['error'] = "فیلم مربوط به این سفارش پیدا نشد";
+        header("Location: orders.php");
+        exit();
+    }
+    
     $query2 = "UPDATE movies SET tickets = tickets + $tickets WHERE movid = $movid";
+    
     $query3 = "DELETE FROM ticket WHERE tickid = $tickid";
+    
     if(mysqli_query($link,$query) && mysqli_query($link,$query2) && mysqli_query($link,$query3)){
         $_SESSION['ok'] = "سفارش با موفقیت حذف شد";
         header("Location:  orders.php");

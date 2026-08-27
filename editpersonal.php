@@ -51,7 +51,6 @@ if (isset($_POST['id']) && !empty($_POST['id']) &&
 
     $_SESSION['namefamily'] = $namefamily;
     $_SESSION['username'] = $username;
-    $_SESSION['pass'] = $pass;
     $_SESSION['email'] = $email;
     $_SESSION['phone'] = $phone;
 

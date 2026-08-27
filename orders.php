@@ -20,7 +20,6 @@ include("errorOKhandle.php");
             <td align="center"><label id="lbl">ابزار</label></td>
         </tr>
         <?php
-        $userid = $_SESSION['id'];
         $tickquery = "SELECT * FROM ticket";
         $tickresult = mysqli_query($link, $tickquery);
 

@@ -1,7 +1,21 @@
 <?php
 session_start();
 include("header.php");
-include("errorOKhandle.php"); 
+include("errorOKhandle.php");
+
+if(isset($_SESSION['id'])){
+$id = $_SESSION['id'];
+
+$query = "SELECT pass FROM users where id = $id";
+$result = mysqli_query($link, $query);
+$row = mysqli_fetch_array($result);
+
+$pass = $row['pass'];
+}else{
+    $_SESSION['error'] = "ابتدا وارد شوید";
+    header("Location: login.php");
+    exit();
+}
 ?>
 <table align="center" width="100%" class="layout-row">
     <tr>
@@ -26,7 +40,7 @@ include("errorOKhandle.php");
     </tr>
     <tr>
         <td>
-        <input id="inform" name="pass" type="text" value="<?php echo $_SESSION['pass']?>"/>
+        <input id="inform" name="pass" type="text" value="<?php echo $pass?>"/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">:رمزعبور</label>

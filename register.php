@@ -52,7 +52,7 @@ include("errorOKhandle.php");
     </tr>
         <tr>
             <td colspan="2" align="center" style="padding-bottom:20px">
-                <label id="titr">از قبل اکانت دارید؟</label><a href="login.php"><label id="titr">
+                <label id="titr">از قبل اکانت دارید؟</label><a href="login.php"><label id="titr" style="color:lightblue">
                     ورود</label></a>
             </td>
         </tr>

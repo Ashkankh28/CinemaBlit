@@ -15,13 +15,13 @@ include("errorOKhandle.php");
             <td><input id="inform" name="pass" type="password" required></td>
         </tr>
         <tr>
-            <td colspan="2" align="center" style="padding-top:20px">
+            <td colspan="2" align="center" style="padding-top:20px;">
                 <button style="cursor: pointer;" id="btn">ورود</button>
             </td>
         </tr>
         <tr>
             <td colspan="2" align="center" style="padding-top:20px">
-                <label id="titr">اکانت ندارید؟</label><a href="register.php"><label id="titr">
+                <label id="titr">اکانت ندارید؟</label><a href="register.php"><label id="titr" style="color:lightblue">
                     ثبت‌نام</label></a>
             </td>
         </tr>

@@ -21,7 +21,6 @@ if ( isset($_POST['username']) && !empty($_POST['username']) &&
         
     $_SESSION['id'] = $row['id'];
     $_SESSION['username'] = $row['username'];
-    $_SESSION['pass'] = $row['pass'];
     $_SESSION['namefamily'] = $row['namefamily'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['phone'] = $row['phone'];
