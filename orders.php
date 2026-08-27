@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['usertype']) || ($_SESSION['usertype'] != "admin")){
+    header("Location: 404page.php");
+    exit();
+}
+
 include("header.php");
 include("errorOKhandle.php");
  ?>
@@ -70,9 +76,7 @@ while ($tickrow = mysqli_fetch_array($tickresult)) {
         </td>
         <td>
             <?php
-            if (isset($_SESSION['usertype']) && $_SESSION['usertype'] == "admin") {
                 include("adminSidebar.html");
-            } 
             ?>
     </tr>
 </table>

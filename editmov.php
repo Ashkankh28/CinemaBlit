@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['usertype']) || ($_SESSION['usertype'] != "admin")){
+    header("Location: 404page.php");
+    exit();
+}
+
 include("header.php");
 
 if (isset($_GET['id'])) {
@@ -147,9 +153,7 @@ if (isset($_POST['submit'])) {
 </form>
         </td>
             <?php
-            if (isset($_SESSION['usertype']) && $_SESSION['usertype'] == "admin") {
                 include("adminSidebar.html");
-            }
             ?>
     </tr>
 </table>

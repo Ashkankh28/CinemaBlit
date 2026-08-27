@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['usertype']) || ($_SESSION['usertype'] != "admin")){
+    header("Location: 404page.php");
+    exit();
+}
+
 require_once "config.php";
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
