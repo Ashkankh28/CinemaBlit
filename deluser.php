@@ -10,8 +10,17 @@ require_once "config.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $query = "DELETE FROM users WHERE id = $id";
-    if(mysqli_query($link,$query)){
+
+    $stmt = mysqli_prepare($link, "DELETE FROM users WHERE id = ?");
+
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $deleteResult = mysqli_stmt_affected_rows($stmt);
+
+    mysqli_stmt_close($stmt);
+    
+    if($deleteResult === 1){
         $_SESSION['ok'] = "کاربر با موفقیت حذف شد";
         header("Location: adminuser.php");
         exit();

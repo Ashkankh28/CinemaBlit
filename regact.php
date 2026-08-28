@@ -38,19 +38,33 @@ if (
         exit();
     }
 
-    $query2 = "SELECT * FROM users WHERE username = '$username' OR email = '$email' OR phone = '$phone'";
-    $result2 = mysqli_query($link, $query2);
-    if (mysqli_num_rows($result2) > 0) {
+    $stmt = mysqli_prepare($link, "SELECT 1 FROM users WHERE username = ? OR email = ? OR phone = ?");
+
+    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $phone);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    mysqli_stmt_close($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
         $_SESSION['error'] = "این نام کاربری یا شماره موبایل یا ایمیل قبلاً ثبت شده است";
         header("Location: register.php");
         exit();
     }
 
-    $query = "INSERT INTO users (namefamily, username, pass, email, phone)
-              VALUES ('$namefamily', '$username', '$pass', '$email', '$phone')";
-    $result = mysqli_query($link, $query);
+    $stmt = mysqli_prepare($link, "INSERT INTO users (namefamily, username, pass, email, phone)
+              VALUES (?, ?, ?, ?, ?)");
 
-    if ($result) {
+    mysqli_stmt_bind_param($stmt, "sssss", $namefamily, $username, $pass, $email, $phone);
+    
+    $insertResult = mysqli_stmt_execute($stmt);
+
+    $insertResultRows = mysqli_stmt_affected_rows($stmt);
+
+    mysqli_stmt_close($stmt);
+
+    if ($insertResult && $insertResultRows === 1) {
         $_SESSION['ok'] = "عضویت شما در سایت با موفقیت انجام شد";
         header("Location: login.php");
         exit();

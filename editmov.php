@@ -10,9 +10,17 @@ include("header.php");
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $query = "SELECT * FROM movies WHERE movid = $id";
-    $result = mysqli_query($link, $query);
+
+    $stmt = mysqli_prepare($link, "SELECT * FROM movies WHERE movid = ?");
+
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+
 }
 
 if (isset($_POST['submit'])) {
@@ -70,11 +78,17 @@ if (isset($_POST['submit'])) {
         $image = $oldImage;
     }
 
-    $query = "UPDATE movies SET movname = '$name', movdirector = '$director', movdate = '$date',
-              movshowtime = '$showtime', tickets = '$tickets', movprice = '$price',
-              movpicture = '$image', movabout = '$about' WHERE movid = $id";
+    $stmt = mysqli_prepare($link, "UPDATE movies SET movname = ?, movdirector = ?, movdate = ?,
+              movshowtime = ?, tickets = ?, movprice = ?,
+              movpicture = ?, movabout = ? WHERE movid = ?");
 
-    if (mysqli_query($link, $query)) {
+    mysqli_stmt_bind_param($stmt, "ssssisssi", $name, $director, $date, $showtime, $tickets, $price, $image, $about, $id);
+    
+    $updateResult = mysqli_stmt_execute($stmt);
+
+    mysqli_stmt_close($stmt);
+
+    if ($updateResult) {
 
         if (!empty($_FILES['movpicture']['name']) &&
             $oldImage !== $image &&

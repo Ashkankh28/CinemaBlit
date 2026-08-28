@@ -3,8 +3,14 @@ session_start();
 include("header.php");
 if(isset($_POST['movname']) && !empty($_POST['movname'])){
 $movname = $_POST['movname'];
-$query = "SELECT * FROM movies WHERE movname LIKE '%$movname%'";
-$result = mysqli_query($link, $query);
+$search = "%" . $movname . "%";
+$stmt = mysqli_prepare($link, "SELECT * FROM movies WHERE movname LIKE ?");
+
+mysqli_stmt_bind_param($stmt, "s", $search);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
 if($result && mysqli_num_rows($result) > 0){
 ?>
 <table id="body" align="center" cellspacing="0">
@@ -38,6 +44,9 @@ if($result && mysqli_num_rows($result) > 0){
         header("location: main-cinemablit.php");
         exit();
     }
+    
+    mysqli_stmt_close($stmt);
+    
     }
     else{
         $_SESSION['error'] = "نام یک فیلم را وارد کنید";

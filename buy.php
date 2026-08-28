@@ -9,16 +9,35 @@ else{
     header("Location: main-cinemablit.php");
     exit;
 }
-$query = "SELECT * FROM movies WHERE movid = $movid";
-$result = mysqli_query($link,$query);
-$row = mysqli_fetch_array($result);
-$id = $_SESSION['id'];
-$query2 = "SELECT * FROM users WHERE id = $id";
-$result2 = mysqli_query($link,$query2);
-$row2 = mysqli_fetch_array($result2);
 
-$seatquery = "SELECT * FROM seats WHERE movid = $movid ORDER BY seatrow, seatnum";
-$seatresult = mysqli_query($link, $seatquery);
+$stmt = mysqli_prepare($link, "SELECT * FROM movies WHERE movid = ?");
+
+mysqli_stmt_bind_param($stmt, "i", $movid);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+mysqli_stmt_close($stmt);
+
+$id = $_SESSION['id'];
+
+$stmt = mysqli_prepare($link, "SELECT * FROM users WHERE id = ?");
+
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+$result2 = mysqli_stmt_get_result($stmt);
+$row2 = mysqli_fetch_assoc($result2);
+
+$seatStmt = mysqli_prepare($link, "SELECT * FROM seats WHERE movid = ? ORDER BY seatrow, seatnum");
+
+mysqli_stmt_bind_param($seatStmt, "i", $movid);
+mysqli_stmt_execute($seatStmt);
+
+$seatresult = mysqli_stmt_get_result($seatStmt);
+
+mysqli_stmt_close($seatStmt);
 
 include("errorOKhandle.php");
 ?>
@@ -54,7 +73,7 @@ include("errorOKhandle.php");
             <table id="seat" align="center" border="1" style="border-collapse: separate;overflow: hidden;margin-bottom:20px">
                 <?php
                 $current_row = null;
-                while ($srow = mysqli_fetch_array($seatresult)) {
+                while ($srow = mysqli_fetch_assoc($seatresult)) {
                     $seat = $srow['seatrow'] . $srow['seatnum'];
                     $reserved = $srow['reserved'];
                     $row_letter = $srow['seatrow'];

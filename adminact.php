@@ -11,20 +11,43 @@ require_once "config.php";
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-$getPic = mysqli_query($link, "SELECT movpicture FROM movies WHERE movid = $id");
-$picRow = mysqli_fetch_assoc($getPic);
+$stmt = mysqli_prepare($link,"SELECT movpicture FROM movies WHERE movid = ?");
+
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
+$picRow = mysqli_fetch_assoc($result);
+
+mysqli_stmt_close($stmt);
+
 $picPath = "./pics/" . $picRow['movpicture'];
+
 if (file_exists($picPath)) {
     unlink($picPath);
 }
 
-    $query = "DELETE FROM movies WHERE movid = $id";
-    $seatquery = "DELETE FROM seats WHERE movid = $id";
-    if (mysqli_query($link, $query) && mysqli_query($link, $seatquery)) {
-        $_SESSION['ok'] = "فیلم با موفقیت حذف شد";
-    } else {
-        $_SESSION['error'] = "خطا در حذف فیلم!";
-    }
+$seatStmt = mysqli_prepare($link, "DELETE FROM seats WHERE movid = ?");
+mysqli_stmt_bind_param($seatStmt, "i", $id);
+
+$seatResult = mysqli_stmt_execute($seatStmt);
+
+mysqli_stmt_close($seatStmt);
+
+$movieStmt = mysqli_prepare($link, "DELETE FROM movies WHERE movid = ?");
+mysqli_stmt_bind_param($movieStmt, "i", $id);
+
+$movieResult = mysqli_stmt_execute($movieStmt);
+
+mysqli_stmt_close($movieStmt);
+
+
+if ($movieResult && $seatResult) {
+    $_SESSION['ok'] = "فیلم با موفقیت حذف شد";
+} else {
+    $_SESSION['error'] = "خطا در حذف فیلم!";
+}
     
 
     header("Location: admin.php");
@@ -33,7 +56,7 @@ if (file_exists($picPath)) {
 
 if (
     isset($_POST['movname'], $_POST['movdirector'], $_POST['movdate'],
-        $_POST['movshowtime'], $_POST['movprice'], $_POST['movabout']) &&
+        $_POST['movshowtime'], $_POST['movprice'], $_POST['movabout'], $_POST['tickets']) &&
     isset($_FILES['movpicture']) && $_FILES['movpicture']['error'] === 0
 ) {
 
@@ -45,13 +68,23 @@ if (
     $movprice = $_POST['movprice'];
     $movabout = $_POST['movabout'];
 
-    $check_query = "SELECT * FROM movies WHERE movname = '$movname' AND movdirector = '$movdirector'";
-    $check_result = mysqli_query($link, $check_query);
-    if (mysqli_num_rows($check_result) > 0) {
+    $checkStmt = mysqli_prepare($link,"SELECT 1 FROM movies WHERE movname = ? AND movdirector = ? LIMIT 1");
+
+    mysqli_stmt_bind_param($checkStmt, "ss", $movname, $movdirector);
+
+    mysqli_stmt_execute($checkStmt);
+
+    $checkResult = mysqli_stmt_get_result($checkStmt);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        mysqli_stmt_close($checkStmt);
+
         $_SESSION['error'] = "این فیلم قبلاً ثبت شده است";
         header("Location: admin.php");
         exit();
     }
+
+    mysqli_stmt_close($checkStmt);
 
     $movpicture = $_FILES['movpicture']['name'];
     $tmp_name = $_FILES['movpicture']['tmp_name'];
@@ -92,30 +125,68 @@ if (
         exit();
     }
 
+$insertStmt = mysqli_prepare(
+    $link,
+    "INSERT INTO movies
+    (movname, movdirector, movdate, movshowtime, movprice, movpicture, movabout, tickets)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+);
 
-$insert_query = "INSERT INTO movies (movname, movdirector, movdate, movshowtime, movprice,
-                 movpicture, movabout , tickets)
-     VALUES ('$movname', '$movdirector', '$movdate', '$movshowtime', '$movprice', '$movpicture',
-             '$movabout' , '$tickets')";
+mysqli_stmt_bind_param(
+    $insertStmt,
+    "sssssssi",
+    $movname,
+    $movdirector,
+    $movdate,
+    $movshowtime,
+    $movprice,
+    $movpicture,
+    $movabout,
+    $tickets
+);
 
-    if (mysqli_query($link, $insert_query)) {
-        $_SESSION['ok'] = "فیلم با موفقیت اضافه شد";
-        $movid = mysqli_insert_id($link);
-        $rows = ['A', 'B', 'C', 'D', 'E'];
-        $seats_per_row = 10;
+if (mysqli_stmt_execute($insertStmt)) {
 
-        foreach ($rows as $row) {
-            for ($i = 1; $i <= $seats_per_row; $i++) {
-                $query = "INSERT INTO seats (movid, seatrow, seatnum) VALUES ($movid, '$row', $i)";
-                mysqli_query($link, $query);
-            }
+    $movid = mysqli_insert_id($link);
+
+    mysqli_stmt_close($insertStmt);
+
+    $_SESSION['ok'] = "فیلم با موفقیت اضافه شد";
+
+    $rows = ['A', 'B', 'C', 'D', 'E'];
+    $seats_per_row = 10;
+
+    $seatStmt = mysqli_prepare(
+        $link,
+        "INSERT INTO seats (movid, seatrow, seatnum) VALUES (?, ?, ?)"
+    );
+
+    foreach ($rows as $row) {
+        for ($i = 1; $i <= $seats_per_row; $i++) {
+
+            mysqli_stmt_bind_param(
+                $seatStmt,
+                "isi",
+                $movid,
+                $row,
+                $i
+            );
+
+            mysqli_stmt_execute($seatStmt);
         }
-            header("Location: admin.php");
-            exit();
-        
-    } else {
-        $_SESSION['error'] = "خطا در ثبت فیلم در پایگاه داده";
     }
+
+    mysqli_stmt_close($seatStmt);
+
+    header("Location: admin.php");
+    exit();
+
+} else {
+
+    mysqli_stmt_close($insertStmt);
+
+    $_SESSION['error'] = "خطا در ثبت فیلم در پایگاه داده";
+}
 } else {
     $_SESSION['error'] = "لطفاً تمام فیلدها را به‌درستی پر کنید و یک تصویر انتخاب نمایید";
     header("Location: admin.php");

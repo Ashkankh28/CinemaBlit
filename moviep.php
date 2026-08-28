@@ -9,9 +9,16 @@ else{
     header("Location: main-cinemablit.php");
     exit;
 }
-$query = "SELECT * FROM movies WHERE movid = $movid ";
-$result = mysqli_query($link,$query);
-$row = mysqli_fetch_array($result);
+
+$stmt = mysqli_prepare($link, "SELECT * FROM movies WHERE movid = ?");
+
+mysqli_stmt_bind_param($stmt, "i", $movid);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+mysqli_stmt_close($stmt);
 ?>
 
 <table id="moviep" align="center">

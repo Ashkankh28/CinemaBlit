@@ -2,8 +2,10 @@
 session_start();
 include("header.php");
 include("errorOKhandle.php");
+
 $query = "SELECT * FROM movies";
 $result = mysqli_query($link, $query);
+
 ?>
 <table id="body" align="center" cellspacing="0">
 <tr>

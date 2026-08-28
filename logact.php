@@ -12,34 +12,39 @@ if ( isset($_POST['username']) && !empty($_POST['username']) &&
     $username = $_POST['username'];
     $password = $_POST['pass']; 
     
-    $query = "SELECT * FROM users WHERE username = '$username' AND pass = '$password'";
-    $result = mysqli_query($link, $query);
-    $row = mysqli_fetch_array($result);
+    $stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ? AND pass = ?");
+    
+    mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
     
     if ($row) {
-        $_SESSION['loginstate'] = true;
-        
-    $_SESSION['id'] = $row['id'];
-    $_SESSION['username'] = $row['username'];
-    $_SESSION['namefamily'] = $row['namefamily'];
-    $_SESSION['email'] = $row['email'];
-    $_SESSION['phone'] = $row['phone'];
+        $_SESSION['loginstate'] = true;    
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['namefamily'] = $row['namefamily'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['phone'] = $row['phone'];
 
-    if($row['mtype'] == 1){
-        $_SESSION['usertype'] = "admin";
-    }
-    else{
-        $_SESSION['usertype'] = "normaluser";
-    } 
-    header("Location: main-cinemablit.php");
+        if($row['mtype'] == 1){
+            $_SESSION['usertype'] = "admin";
+        }
+        else{
+            $_SESSION['usertype'] = "normaluser";
+        } 
+        header("Location: main-cinemablit.php");
+            exit();
+    } else {
+        $_SESSION['loginstate'] = false;
+        $_SESSION['error'] = "نام کاربری یا رمز اشتباه است";
+        header("Location: login.php");
         exit();
-} else {
-    $_SESSION['loginstate'] = false;
-    $_SESSION['error'] = "نام کاربری یا رمز اشتباه است";
-    header("Location: login.php");
-    exit();
+    }
 }
-     }
 else {
     $_SESSION['error'] = "لطفاً تمام فیلدها را پر کنید";
     header("Location: login.php");

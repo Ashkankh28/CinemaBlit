@@ -10,7 +10,6 @@ if (isset($_POST['namefamily']) && !empty($_POST['namefamily']) &&
     isset($_POST['phone']) && !empty($_POST['phone'])
 ) {
 
-
     $id = $_SESSION['id'];
     $namefamily = $_POST['namefamily'];
     $username = $_POST['username'];
@@ -40,18 +39,30 @@ if (isset($_POST['namefamily']) && !empty($_POST['namefamily']) &&
         exit();
     }
 
-    $query2 = "SELECT * FROM users WHERE (username = '$username' OR email = '$email' OR phone = '$phone') AND id != '$id'";
-    $result2 = mysqli_query($link, $query2);
-    if (mysqli_num_rows($result2) > 0) {
+    $stmt = mysqli_prepare($link, "SELECT 1 FROM users WHERE (username = ? OR email = ? OR phone = ?) AND id != ?");
+
+    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $phone, $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
         $_SESSION['error'] = "این نام کاربری یا شماره موبایل یا ایمیل قبلاً ثبت شده است";
         header("Location: personal.php");
         exit();
     }
+    
+    mysqli_stmt_close($stmt);
 
-    $query = "UPDATE users SET namefamily = '$namefamily' , username = '$username' , pass = '$pass' , 
-     email = '$email' , phone = '$phone' WHERE id = '$id' ";
+    $stmt = mysqli_prepare($link, "UPDATE users SET namefamily = ? , username = ?, pass = ?, email = ?, phone = ? WHERE id = ?");
 
-         if (mysqli_query($link, $query)) {
+    mysqli_stmt_bind_param($stmt, "sssssi", $namefamily, $username, $pass, $email, $phone, $id);
+   
+    $updateResult = mysqli_stmt_execute($stmt);
+   
+    mysqli_stmt_close($stmt);
+
+         if ($updateResult) {
             $_SESSION['ok'] = "تغییرات با موفقیت اعمال شد";
 
                 $_SESSION['namefamily'] = $namefamily;
