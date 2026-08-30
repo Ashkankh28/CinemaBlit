@@ -34,7 +34,7 @@ $pass = $row['pass'];
         <input id="inform" name="namefamily" type="text" value="<?php echo $_SESSION['namefamily']?>"/>
         </td>
         <td style="padding-top:15px;">
-        <label id="titr" style="padding-right:30px;">:نام و نام خانوادگی</label>
+        <label id="titr" style="padding-right:30px;">نام و نام خانوادگی:</label>
         </td>
     </tr>
     <tr>
@@ -42,12 +42,12 @@ $pass = $row['pass'];
         <input id="inform" name="username" type="text" value="<?php echo $_SESSION['username']?>"/>
         </td>
         <td style="padding-top:15px;">
-        <label id="titr" style="padding-right:40px">:نام کاربری</label>
+        <label id="titr" style="padding-right:40px">نام کاربری:</label>
         </td>
     </tr>
     <tr>
         <td style="position:relative;">
-        <input id="inform" name="pass" type="password" value="<?php echo $pass?>"/>
+        <input id="inform" name="pass" type="password"/>
         <button type="button" onclick="
             var inp = this.previousElementSibling;
             if (inp.type === 'password') {
@@ -60,7 +60,7 @@ $pass = $row['pass'];
         " style="cursor:pointer;background:none;border:none;position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;">👁️</button>
         </td>
         <td style="padding-top:15px;">
-        <label id="titr" style="padding-right:40px">:رمزعبور</label>
+        <label id="titr" style="padding-right:40px">رمزعبور جدید:</label>
         </td>
     </tr>
     <tr>
@@ -68,7 +68,7 @@ $pass = $row['pass'];
         <input id="inform" name="email"  type="email" value="<?php echo $_SESSION['email']?>"/>
         </td>
         <td style="padding-top:15px;">
-        <label id="titr" style="padding-right:40px">:ایمیل</label>
+        <label id="titr" style="padding-right:40px">ایمیل:</label>
         </td>
     </tr>
     <tr>
@@ -76,7 +76,7 @@ $pass = $row['pass'];
         <input id="inform" name="phone" type="text" value="<?php echo $_SESSION['phone']?>"/>
         </td>
         <td style="padding-top:15px">
-        <label id="titr" style="padding-right:40px">:شماره موبایل</label>
+        <label id="titr" style="padding-right:40px">شماره موبایل:</label>
         </td>
     </tr>
     <tr>

@@ -12,7 +12,19 @@ include("errorOKhandle.php");
         </tr>
         <tr>
             <td style="padding-top:16px"><label id="titr">رمزعبور:</label></td>
-            <td><input id="inform" name="pass" type="password" required></td>
+            <td style="position:relative;">
+            <input id="inform" name="pass" type="password"/>
+            <button type="button" onclick="
+                var inp = this.previousElementSibling;
+                if (inp.type === 'password') {
+                    inp.type = 'text';
+                    this.textContent = '🙈';
+                } else {
+                    inp.type = 'password';
+                    this.textContent = '👁️';
+                }
+            " style="cursor:pointer;background:none;border:none;position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;">👁️</button>
+            </td>
         </tr>
         <tr>
             <td colspan="2" align="center" style="padding-top:20px;">
