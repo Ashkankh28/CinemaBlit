@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_GET['notice']) && $_GET['notice'] === 'buy') {
+    $_SESSION['error'] = "برای خرید بلیط ابتدا وارد شوید";
+}
 include("header.php");
 include("errorOKhandle.php");
  ?>

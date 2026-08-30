@@ -53,9 +53,9 @@ mysqli_stmt_close($stmt);
                         <?php 
                         }
                         else{ ?>
-                            <button id="btn" onclick="location.href='login.php'" 
+                            <button id="btn" onclick="location.href='login.php?notice=buy'" 
                             style="cursor: pointer;">خرید</button>
-                            <?php $_SESSION['error'] = "برای خرید بلیط ابتدا وارد شوید"; } ?>
+                            <?php } ?>
                     </td>
                 </tr>
             </table>
