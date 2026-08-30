@@ -46,8 +46,18 @@ $pass = $row['pass'];
         </td>
     </tr>
     <tr>
-        <td>
-        <input id="inform" name="pass" type="text" value="<?php echo $pass?>"/>
+        <td style="position:relative;">
+        <input id="inform" name="pass" type="password" value="<?php echo $pass?>"/>
+        <button type="button" onclick="
+            var inp = this.previousElementSibling;
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                this.textContent = '🙈';
+            } else {
+                inp.type = 'password';
+                this.textContent = '👁️';
+            }
+        " style="cursor:pointer;background:none;border:none;position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;">👁️</button>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">:رمزعبور</label>
