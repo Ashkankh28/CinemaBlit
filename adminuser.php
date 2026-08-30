@@ -17,7 +17,6 @@ include("errorOKhandle.php");
             <td align="center"><label id="lbl">آیدی</label></td>
             <td align="center"><label id="lbl">نام و نام خانوادگی</label></td>
             <td align="center"><label id="lbl">نام کاربری</label></td>
-            <td align="center"><label id="lbl">رمزعبور</label></td>
             <td align="center"><label id="lbl">ایمیل</label></td>
             <td align="center"><label id="lbl">شماره موبایل</label></td>
             <td align="center"><label id="lbl">دسترسی</label></td>
@@ -31,7 +30,6 @@ include("errorOKhandle.php");
             <td align="center"><label id="lbl"><?php echo $row['id']; ?></label></td>
             <td align="center"><label id="lbl"><?php echo $row['namefamily']; ?></label></td>
             <td align="center"><label id="lbl"><?php echo $row['username']; ?></label></td>
-            <td align="center"><label id="lbl"><?php echo $row['pass']; ?></label></td>
             <td align="center"><label id="lbl"><?php echo $row['email']; ?></label></td>
             <td align="center"><label id="lbl"><?php echo $row['phone']; ?></label></td>
             <td align="center"><label id="lbl"><?php if($row['mtype']==1){echo("مدیر");} else{echo("کاربر عادی");}?></label></td>
