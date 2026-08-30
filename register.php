@@ -7,7 +7,7 @@ include("errorOKhandle.php");
 <table id="user" align="center" style="margin-bottom:30px">
     <tr>
         <td>
-        <input id="inform" name="namefamily" type="text" />
+        <input id="inform" name="namefamily" type="text" required/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:30px;">نام و نام خانوادگی:</label>
@@ -15,7 +15,7 @@ include("errorOKhandle.php");
     </tr>
     <tr>
         <td>
-        <input id="inform" name="username" type="text" />
+        <input id="inform" name="username" type="text" required/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">نام کاربری:</label>
@@ -23,7 +23,7 @@ include("errorOKhandle.php");
     </tr>
     <tr>
         <td style="position:relative;">
-        <input id="inform" name="pass" type="password"/>
+        <input id="inform" name="pass" type="password" required/>
         <button type="button" onclick="
             var inp = this.previousElementSibling;
             if (inp.type === 'password') {
@@ -41,7 +41,7 @@ include("errorOKhandle.php");
     </tr>
     <tr>
         <td>
-        <input id="inform" name="email"  type="email" />
+        <input id="inform" name="email"  type="email" required/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">ایمیل:</label>
@@ -49,7 +49,7 @@ include("errorOKhandle.php");
     </tr>
     <tr>
         <td>
-        <input id="inform" name="phone" type="text" />
+        <input id="inform" name="phone" type="text" required/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">شماره موبایل:</label>
