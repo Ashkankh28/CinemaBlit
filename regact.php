@@ -12,7 +12,7 @@ if (
 ) {
     $namefamily = $_POST['namefamily'];
     $username = $_POST['username'];
-    $pass = $_POST['pass'];
+    $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 

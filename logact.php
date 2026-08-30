@@ -12,9 +12,9 @@ if ( isset($_POST['username']) && !empty($_POST['username']) &&
     $username = $_POST['username'];
     $password = $_POST['pass']; 
     
-    $stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ? AND pass = ?");
+    $stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?");
     
-    mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+    mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     
     $result = mysqli_stmt_get_result($stmt);
@@ -22,7 +22,7 @@ if ( isset($_POST['username']) && !empty($_POST['username']) &&
 
     mysqli_stmt_close($stmt);
     
-    if ($row) {
+    if ($row && password_verify($password, $row['pass'])) {
         $_SESSION['loginstate'] = true;    
         $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
