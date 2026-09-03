@@ -3,8 +3,8 @@ session_start();
 
 require_once "config.php";
 
-if(isset($_GET['id']) && isset($_GET['movid'])){
-    $id = $_GET['id'];
+if(isset($_SESSION['id']) && isset($_GET['movid'])){
+    $id = $_SESSION['id'];
     $movid = $_GET['movid'];
 
     if (!isset($_POST['seats']) || !is_array($_POST['seats']) || count($_POST['seats']) == 0) {
