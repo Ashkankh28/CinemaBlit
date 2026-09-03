@@ -41,7 +41,7 @@ mysqli_stmt_close($seatStmt);
 
 include("errorOKhandle.php");
 ?>
-    <form action="buyact.php?movid= <?php echo($row['movid']);?>"
+    <form action="buyact.php?movid=<?php echo($row['movid']);?>"
      method="POST">
 <table id="movbuy" align="center" dir="rtl" style="margin-bottom:40px;">
     <tr>
