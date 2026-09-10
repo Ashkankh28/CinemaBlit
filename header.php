@@ -1,6 +1,8 @@
 <?php
 
 require_once "config.php";
+ 
+include("escapeXSS.php");
 
 if (!isset($_SESSION['loginstate'])) {
     $_SESSION['loginstate'] = false;

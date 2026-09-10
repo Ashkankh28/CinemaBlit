@@ -85,37 +85,37 @@ while ($tickRow = mysqli_fetch_assoc($tickResult)) {
     <tr>
 
         <td align="center">
-            <label id="lbl"><?php echo $movname; ?></label>
+            <label id="lbl"><?= e($movname) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $showdate; ?></label>
+            <label id="lbl"><?= e($showdate) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $showtime; ?></label>
+            <label id="lbl"><?= e($showtime) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $tickcount; ?></label>
+            <label id="lbl"><?= e($tickcount) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $tickprice; ?></label>
+            <label id="lbl"><?= e($tickprice) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo implode(", ", $seat_list); ?></label>
+            <label id="lbl"><?= e(implode(", ", $seat_list)) ?></label>
         </td>
 
         <td align="center">
-            <img src="./pics/<?php echo $movpicture; ?>"
+            <img src="./pics/<?= e($movpicture) ?>"
                  width="80px"
-                 alt="<?php echo $movname; ?>" />
+                 alt="<?= e($movname) ?>" />
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $created; ?></label>
+            <label id="lbl"><?= e($created) ?></label>
         </td>
 
     </tr>
@@ -150,37 +150,37 @@ if ($currentTickid !== null) {
     <tr>
 
         <td align="center">
-            <label id="lbl"><?php echo $movname; ?></label>
+            <label id="lbl"><?= e($movname) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $showdate; ?></label>
+            <label id="lbl"><?= e($showdate) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $showtime; ?></label>
+            <label id="lbl"><?= e($showtime) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $tickcount; ?></label>
+            <label id="lbl"><?= e($tickcount) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $tickprice; ?></label>
+            <label id="lbl"><?= e($tickprice) ?></label>
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo implode(", ", $seat_list); ?></label>
+            <label id="lbl"><?= e(implode(", ", $seat_list)) ?></label>
         </td>
 
         <td align="center">
-            <img src="./pics/<?php echo $movpicture; ?>"
+            <img src="./pics/<?= e($movpicture) ?>"
                  width="80px"
-                 alt="<?php echo $movname; ?>" />
+                 alt="<?= e($movname) ?>" />
         </td>
 
         <td align="center">
-            <label id="lbl"><?php echo $created; ?></label>
+            <label id="lbl"><?= e($created) ?></label>
         </td>
 
     </tr>

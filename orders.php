@@ -123,63 +123,63 @@ $tickResult = mysqli_stmt_get_result($tickStmt);
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['movname']; ?>
+                                <?= e($tickrow['movname']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['namefamily']; ?>
+                                <?= e($tickrow['namefamily']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['showdate']; ?>
+                                <?= e($tickrow['showdate']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['showtime']; ?>
+                                <?= e($tickrow['showtime']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['tickcount']; ?>
+                                <?= e($tickrow['tickcount']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['tickprice']; ?>
+                                <?= e($tickrow['tickprice']) ?>
                             </label>
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $seat_display; ?>
+                                <?= e($seat_display) ?>
                             </label>
                         </td>
 
                         <td align="center">
 
-                            <img src="./pics/<?php echo $tickrow['movpicture']; ?>"
+                            <img src="./pics/<?= e($tickrow['movpicture']) ?>"
                                  width="80px"
-                                 alt="<?php echo $tickrow['movname']; ?>" />
+                                 alt="<?= e($tickrow['movname']) ?>" />
 
                         </td>
 
                         <td align="center">
                             <label id="lbl">
-                                <?php echo $tickrow['created']; ?>
+                                <?= e($tickrow['created']) ?>
                             </label>
                         </td>
 
                         <td align="center">
 
-                            <a href="delorder.php?tickid=<?php echo $tickrow['tickid']; ?>">
+                            <a href="delorder.php?tickid=<?= e($tickrow['tickid']) ?>">
                                 <label id="lbl">حذف</label>
                             </a>
 

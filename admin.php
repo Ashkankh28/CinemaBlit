@@ -33,19 +33,19 @@ include("errorOKhandle.php");
         while($row = mysqli_fetch_array($result)){
         ?>
         <tr>
-            <td align="center"><label id="lbl"><?php echo($row['movid']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['movname']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['movdirector']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['movdate']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['movshowtime']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['movprice']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo($row['tickets']) ?></label></td>
-            <td align="center"><label id="lbl"><?php echo substr($row['movabout'], 0, 50) . '...'; ?></label></td>
-            <td align="center"><img src="./pics/<?php echo $row['movpicture']; ?>" width="80px" style="padding-left:10px" /></td>
+            <td align="center"><label id="lbl"><?= e($row['movid']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['movname']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['movdirector']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['movdate']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['movshowtime']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['movprice']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e($row['tickets']) ?></label></td>
+            <td align="center"><label id="lbl"><?= e(substr($row['movabout'], 0, 50) . '...') ?></label></td>
+            <td align="center"><img src="./pics/<?= e($row['movpicture']) ?>" width="80px" style="padding-left:10px" /></td>
             <td align="center">
-                <a id="lbl" href="adminact.php?action=delete&id=<?php echo $row['movid']; ?>">حذف</a>
+                <a id="lbl" href="adminact.php?action=delete&id=<?= e($row['movid']) ?>">حذف</a>
                 <br/>&nbsp;
-                <a id="lbl" href="editmov.php?id=<?php echo $row['movid']; ?>">ویرایش</a>
+                <a id="lbl" href="editmov.php?id=<?= e($row['movid']) ?>">ویرایش</a>
             </td>
         </tr>
         <?php } ?>

@@ -31,7 +31,7 @@ $pass = $row['pass'];
  <table id="user" align="center" style="margin-bottom:30px">
     <tr>
         <td>
-        <input id="inform" name="namefamily" type="text" value="<?php echo $_SESSION['namefamily']?>"/>
+        <input id="inform" name="namefamily" type="text" value="<?= e($_SESSION['namefamily']) ?>"/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:30px;">نام و نام خانوادگی:</label>
@@ -39,7 +39,7 @@ $pass = $row['pass'];
     </tr>
     <tr>
         <td>
-        <input id="inform" name="username" type="text" value="<?php echo $_SESSION['username']?>"/>
+        <input id="inform" name="username" type="text" value="<?= e($_SESSION['username']) ?>"/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">نام کاربری:</label>
@@ -65,7 +65,7 @@ $pass = $row['pass'];
     </tr>
     <tr>
         <td>
-        <input id="inform" name="email"  type="email" value="<?php echo $_SESSION['email']?>"/>
+        <input id="inform" name="email"  type="email" value="<?= e($_SESSION['email']) ?>"/>
         </td>
         <td style="padding-top:15px;">
         <label id="titr" style="padding-right:40px">ایمیل:</label>
@@ -73,7 +73,7 @@ $pass = $row['pass'];
     </tr>
     <tr>
         <td>
-        <input id="inform" name="phone" type="text" value="<?php echo $_SESSION['phone']?>"/>
+        <input id="inform" name="phone" type="text" value="<?= e($_SESSION['phone']) ?>"/>
         </td>
         <td style="padding-top:15px">
         <label id="titr" style="padding-right:40px">شماره موبایل:</label>

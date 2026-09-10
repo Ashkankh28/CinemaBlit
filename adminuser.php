@@ -28,17 +28,17 @@ include("errorOKhandle.php");
                 $result = mysqli_query($link,$query);
                 while($row = mysqli_fetch_array($result)){?>
                 <tr>
-                    <td align="center"><label id="lbl"><?php echo $row['id']; ?></label></td>
-                    <td align="center"><label id="lbl"><?php echo $row['namefamily']; ?></label></td>
-                    <td align="center"><label id="lbl"><?php echo $row['username']; ?></label></td>
-                    <td align="center"><label id="lbl"><?php echo $row['email']; ?></label></td>
-                    <td align="center"><label id="lbl"><?php echo $row['phone']; ?></label></td>
-                    <td align="center"><label id="lbl"><?php if($row['mtype']==1){echo("مدیر");} else{echo("کاربر عادی");}?></label></td>
-                    <td align="center"><label id="lbl"><a href="deluser.php?id=<?php echo($row['id']);?>">حذف</a></label></td>
+                    <td align="center"><label id="lbl"><?= e($row['id']) ?></label></td>
+                    <td align="center"><label id="lbl"><?= e($row['namefamily']) ?></label></td>
+                    <td align="center"><label id="lbl"><?= e($row['username']) ?></label></td>
+                    <td align="center"><label id="lbl"><?= e($row['email']) ?></label></td>
+                    <td align="center"><label id="lbl"><?= e($row['phone']) ?></label></td>
+                    <td align="center"><label id="lbl"><?php $row['mtype']==1 ? "مدیر" : "کاربر عادی"; ?></label></td>
+                    <td align="center"><label id="lbl"><a href="deluser.php?id=<?= e($row['id'])?>">حذف</a></label></td>
                     <td align="center">
                     <input type="checkbox"class="admin-checkbox"
-                            data-user-id="<?php echo $row['id']; ?>"
-                            <?php echo ($row['mtype'] == 1) ? 'checked' : ''; ?>>
+                            data-user-id="<?= e($row['id']) ?>"
+                            <?php echo $row['mtype'] == 1 ? 'checked' : ''; ?>>
                     </td>
 
                 </tr>

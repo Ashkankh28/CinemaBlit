@@ -41,26 +41,26 @@ mysqli_stmt_close($seatStmt);
 
 include("errorOKhandle.php");
 ?>
-    <form action="buyact.php?movid=<?php echo($row['movid']);?>"
+    <form action="buyact.php?movid=<?= e($row['movid']) ?>"
      method="POST">
 <table id="movbuy" align="center" dir="rtl" style="margin-bottom:40px;">
     <tr>
         <td style="padding-top:20px">
-        <img id="movieab" src="./pics/<?php echo($row['movpicture']); ?>" width="300px"
-        alt="<?php echo($row['movname']);?>" /> 
+        <img id="movieab" src="./pics/<?= e($row['movpicture']) ?>" width="300px"
+        alt="<?= e($row['movname']) ?>" /> 
         </td>
         <td style="padding-top:20px;">
-            <label id="titr">نام فیلم: <?php echo($row['movname']); ?></label><br/><br/>
-            <label id="titr">تاریخ پخش: <?php echo($row['movdate']); ?></label><br/><br/>
-            <label id="titr">سانس: <?php echo($row['movshowtime']); ?></label><br/><br/>
-            <label id="titr">قیمت بلیط: <?php echo($row['movprice']); ?> تومان</label><br/><br/>
+            <label id="titr">نام فیلم: <?= e($row['movname']) ?></label><br/><br/>
+            <label id="titr">تاریخ پخش: <?= e($row['movdate']) ?></label><br/><br/>
+            <label id="titr">سانس: <?= e($row['movshowtime']) ?></label><br/><br/>
+            <label id="titr">قیمت بلیط: <?= e($row['movprice']) ?> تومان</label><br/><br/>
         </td>
     </tr>
     <tr>
         <td colspan="2" style="padding-top:50px;">
-            <label id="titr">خریدار: <?php echo($row2['namefamily']); ?></label><br/><br/>
-            <label id="titr">شماره موبایل : <?php echo($row2['phone']); ?></label><br/><br/>
-            <label id="titr">ایمیل: <?php echo($row2['email']); ?></label><br/><br/>
+            <label id="titr">خریدار: <?= e($row2['namefamily']) ?></label><br/><br/>
+            <label id="titr">شماره موبایل : <?= e($row2['phone']) ?></label><br/><br/>
+            <label id="titr">ایمیل: <?= e($row2['email']) ?></label><br/><br/>
         </td>
     </tr>
     <tr>
@@ -82,14 +82,14 @@ include("errorOKhandle.php");
                         if ($current_row !== null) {
                             echo '</tr>';
                         }
-                        echo '<tr><th align="center">' . $row_letter . '</th>';
+                        echo '<tr><th align="center">' . e($row_letter) . '</th>';
                         $current_row = $row_letter;
                     }
                     if ($reserved) {
-                        echo '<td align="center" style="background-color: red; text-align: center;">' . $seat . '</td>';
+                        echo '<td align="center" style="background-color: red; text-align: center;">' . e($seat) . '</td>';
                     } else {
-                        echo '<td align="center" style="background-color: green; text-align: center;">' . $seat .
-                             ' <input type="checkbox" name="seats[]" value="' . $srow['seatid'] . '" /></td>';
+                        echo '<td align="center" style="background-color: green; text-align: center;">' . e($seat) .
+                             ' <input type="checkbox" name="seats[]" value="' . e($srow['seatid']) . '" /></td>';
                     }
                 }
                 ?>

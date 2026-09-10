@@ -118,43 +118,43 @@ if (isset($_POST['submit'])) {
 <table align="center" width="100%" class="layout-row">
     <tr>
         <td>
-<form action="editmov.php?id=<?php echo $row['movid']; ?>" method="post" enctype="multipart/form-data">
-<input type="hidden" name="movid" value="<?php echo $row['movid']; ?>">
+<form action="editmov.php?id=<?= e($row['movid']) ?>" method="post" enctype="multipart/form-data">
+<input type="hidden" name="movid" value="<?= e($row['movid']) ?>">
 <table id="user" align="center" style="margin-bottom:20px;">
     <tr>
-        <td><input id="inform" name="movname" type="text" value="<?php echo $row['movname']; ?>" /></td>
+        <td><input id="inform" name="movname" type="text" value="<?= e($row['movname']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px;">:نام فیلم</label></td>
     </tr>
     <tr>
-        <td><input id="inform" name="movdirector" type="text" value="<?php echo $row['movdirector']; ?>" /></td>
+        <td><input id="inform" name="movdirector" type="text" value="<?= e($row['movdirector']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px">:کارگردان فیلم</label></td>
     </tr>
     <tr>
-        <td><input id="inform" name="movdate" type="text" value="<?php echo $row['movdate']; ?>" /></td>
+        <td><input id="inform" name="movdate" type="text" value="<?= e($row['movdate']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px">:تاریخ پخش</label></td>
     </tr>
     <tr>
-        <td><input id="inform" name="movshowtime" type="text" value="<?php echo $row['movshowtime']; ?>" /></td>
+        <td><input id="inform" name="movshowtime" type="text" value="<?= e($row['movshowtime']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px">:سانس</label></td>
     </tr>
     <tr>
-        <td><input id="inform" name="movprice" type="text" value="<?php echo $row['movprice']; ?>" /></td>
+        <td><input id="inform" name="movprice" type="text" value="<?= e($row['movprice']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px">:قیمت بلیط</label></td>
     </tr>
     <tr>
-        <td><input id="inform" name="tickets" type="text" value="<?php echo $row['tickets']; ?>" /></td>
+        <td><input id="inform" name="tickets" type="text" value="<?= e($row['tickets']) ?>" /></td>
         <td><label id="titr" style="padding-right:40px">:تعداد بلیط</label></td>
     </tr>
     <tr>
         <td colspan="2">
-            <input type="hidden" name="oldpicture" value="<?php echo $row['movpicture']; ?>">
+            <input type="hidden" name="oldpicture" value="<?= e($row['movpicture']) ?>">
             <input name="movpicture" type="file" />
             <label id="titr" style="padding-right:15px">:تصویر جدید</label>
         </td>
     </tr>
     <tr>
         <td>
-            <textarea id="inform" name="movabout" cols="22" rows="5"><?php echo $row['movabout']; ?></textarea>
+            <textarea id="inform" name="movabout" cols="22" rows="5"><?= e($row['movabout']) ?></textarea>
         </td>
         <td><label id="titr" style="padding-right:40px">:درباره فیلم</label></td>
     </tr>
